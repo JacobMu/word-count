@@ -27,13 +27,13 @@ describe('Index', () => {
         });
     
         it('should get text length from one letter text', () => {
-            const wordCount = getWordCount("a");
+            const wordCount = getWordCount("ab");
     
             expect(wordCount).toEqual(1);
         });
     
         it('should ignore new carrier line and return correct word length', () => {
-            const wordCount = getWordCount("a\n");
+            const wordCount = getWordCount("ab\n");
     
             expect(wordCount).toEqual(1);
         });
@@ -55,15 +55,27 @@ describe('Index', () => {
         });
     
         it('should ignore multiple new carrier lines or spaces between words', () => {
-            const wordCount = getWordCount("a \n\ntwo  b");
+            const wordCount = getWordCount("av \n\ntwo  b");
     
             expect(wordCount).toEqual(3);
         });
     
         it('should ignore multiple new carrier lines or spaces between words', () => {
-            const wordCount = getWordCount("a \n\n two  b");
+            const wordCount = getWordCount("ab \n\n two  b");
     
             expect(wordCount).toEqual(3);
         });
+
+        it('should not count special words', () => {
+            const wordCount = getWordCount("Mary had a little lamb");
+    
+            expect(wordCount).toEqual(4);
+        });
+
+        it('should not count empty string', () => {
+            const wordCount = getWordCount("");
+    
+            expect(wordCount).toEqual(0);
+        })
     });
 });
